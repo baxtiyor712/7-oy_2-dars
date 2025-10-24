@@ -9,7 +9,7 @@ import { User } from './user.model';
 export class UserService {
   constructor(@InjectModel(User) private userModel: typeof User) { }
   async create(createUserDto: CreateUserDto) {
-    const {username, email, password, age, img} = createUserDto
+    const { username, email, password, age, img } = createUserDto
     return this.userModel.create({ username, email, password, age, img })
   }
 
