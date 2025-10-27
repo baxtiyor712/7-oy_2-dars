@@ -1,14 +1,13 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from './auth/auth.module';
-import { Auth } from './auth/auth.model';
 import { UserModule } from './user/user.module';
-import { User } from './user/user.model';
-import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { AuthGuard } from './auth/auth.guard';
-import { RolesGuard } from './auth/roles.guard';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Auth } from './shared/entities/auth.entity';
+import { User } from './shared/entities/user.entity';
+import { HttpExceptionFilter } from './filter/all-exception.filter';
 
 @Module({
   imports: [
@@ -21,16 +20,16 @@ import { RolesGuard } from './auth/roles.guard';
       ],
     }),
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
-    SequelizeModule.forRoot({
-      dialect: "postgres",
+    TypeOrmModule.forRoot({
+      type: "postgres",
       username: "postgres",
       host: "localhost",
       port: 5432,
       database: "test4",
       password: "1111",
-      models: [Auth, User],
+      entities: [Auth, User],
       synchronize: true,
-      autoLoadModels: true,
+      autoLoadEntities: true,
       logging: false
     }),
     AuthModule,
@@ -46,9 +45,9 @@ import { RolesGuard } from './auth/roles.guard';
       provide: APP_GUARD,
       useClass: ThrottlerGuard
     },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
+        {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
   ],
 })
