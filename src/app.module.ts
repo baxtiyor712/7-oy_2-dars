@@ -1,6 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './module/auth/auth.module';
 import { UserModule } from './user/user.module';
 import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
@@ -8,6 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Auth } from './shared/entities/auth.entity';
 import { User } from './shared/entities/user.entity';
 import { HttpExceptionFilter } from './filter/all-exception.filter';
+import { UploadModule } from './module/upload/upload.module';
+import { PostModule } from './post/post.module';
+import { CommentModule } from './module/comment/comment.module';
 
 @Module({
   imports: [
@@ -33,7 +36,10 @@ import { HttpExceptionFilter } from './filter/all-exception.filter';
       logging: false
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    UploadModule,
+    PostModule,
+    CommentModule
   ],
   controllers: [],
   providers: [

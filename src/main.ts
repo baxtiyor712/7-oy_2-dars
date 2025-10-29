@@ -4,10 +4,12 @@ import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './filter/all-exception.filter';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const PORT = process.env.PORT ?? 3000
   app.useGlobalPipes(new ValidationPipe({
@@ -43,10 +45,14 @@ async function bootstrap() {
     },
   });
 
+  // upload file 
+   app.useStaticAssets( join(process.cwd(), "uploads"),{
+    prefix: "/uploads"
+   })
 
   await app.listen(PORT, () => {
-    console.log("http://localhost:4001 app");
-    console.log("http://localhost:4001/api-docs swagger");
+    console.log("Root API for App:http://localhost:4001 app");
+    console.log("Swagger documanatation:http://localhost:4001/api-docs");
   });
 }
 bootstrap();
