@@ -9,8 +9,12 @@ import { Auth } from './shared/entities/auth.entity';
 import { User } from './shared/entities/user.entity';
 import { HttpExceptionFilter } from './filter/all-exception.filter';
 import { UploadModule } from './module/upload/upload.module';
-import { PostModule } from './post/post.module';
 import { CommentModule } from './module/comment/comment.module';
+import { Tags } from './shared/entities/tags.entity';
+import { Comment } from './shared/entities/comment.entity';
+import { Article } from './shared/entities/article.entity';
+import { Articlecontent } from './shared/entities/article.content';
+import { ArticlesModule } from './module/articles/articles.module';
 
 @Module({
   imports: [
@@ -30,16 +34,16 @@ import { CommentModule } from './module/comment/comment.module';
       port: 5432,
       database: "test4",
       password: "1111",
-      entities: [Auth, User],
+      entities: [Auth, User, Tags, Comment, Article, Articlecontent],
       synchronize: true,
       autoLoadEntities: true,
       logging: false
     }),
     AuthModule,
     UserModule,
-    UploadModule,
-    PostModule,
-    CommentModule
+    UploadModule, 
+    CommentModule,
+    ArticlesModule
   ],
   controllers: [],
   providers: [
