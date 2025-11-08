@@ -13,8 +13,9 @@ import { CommentModule } from './module/comment/comment.module';
 import { Tags } from './shared/entities/tags.entity';
 import { Comment } from './shared/entities/comment.entity';
 import { Article } from './shared/entities/article.entity';
-import { Articlecontent } from './shared/entities/article.content';
+import { ArticleContent } from './shared/entities/article.content';
 import { ArticlesModule } from './module/articles/articles.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -32,9 +33,9 @@ import { ArticlesModule } from './module/articles/articles.module';
       username: "postgres",
       host: "localhost",
       port: 5432,
-      database: "test4",
+      database: "medium",
       password: "1111",
-      entities: [Auth, User, Tags, Comment, Article, Articlecontent],
+      entities: [Auth, User, Tags, Comment, Article, ArticleContent],
       synchronize: true,
       autoLoadEntities: true,
       logging: false
@@ -43,7 +44,8 @@ import { ArticlesModule } from './module/articles/articles.module';
     UserModule,
     UploadModule, 
     CommentModule,
-    ArticlesModule
+    ArticlesModule,
+    TagsModule
   ],
   controllers: [],
   providers: [

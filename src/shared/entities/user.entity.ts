@@ -26,5 +26,6 @@ export class User {
     @Column()
       @ApiProperty({default: "https://kun.uz/200/200"})
     img: string
+    comments: any;
 
 }

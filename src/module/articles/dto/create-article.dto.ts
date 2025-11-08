@@ -25,8 +25,13 @@ export class CreateArticleDto {
     @IsString()
     imgUrl: string;
 
+    @IsArray()
+    @IsString()
+    tags: string[];
+
+
     @IsOptional()
-    @IsBoolean()
+    @IsBoolean({each: true})
     IsMemberOnly?: boolean;
 
 

@@ -4,8 +4,8 @@ import { Article } from "./article.entity"
 export const ContentTypes = ["image", "code", "list", "paragraph", "heading"] as const
 export type ContentType = typeof ContentTypes[number]
 
-@Entity({ name: "articlecontent" })
-export class Articlecontent {
+@Entity({ name: "articlecntent" })
+export class ArticleContent {
     @PrimaryGeneratedColumn()
     id: number;
 

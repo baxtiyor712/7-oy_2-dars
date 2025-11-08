@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Auth } from "./auth.entity";
-import { Articlecontent } from "./article.content";
+import { ArticleContent } from "./article.content";
 import { Comment } from "./comment.entity";
 
 
@@ -20,6 +20,10 @@ export class Article {
     @Column()
     imgUrl: string
 
+    
+    @Column()
+    tags: string
+
 
     @Column({ default: false })
     IsMemeberOnly: boolean
@@ -36,8 +40,8 @@ export class Article {
     @OneToMany(() => Comment, (comment) => comment.articles, { cascade: true })
     comments: Comment[];
 
-    @OneToMany(() => Articlecontent, (comment) => comment.article, { cascade: true })
-    comment: Articlecontent[];
+    @OneToMany(() => ArticleContent, (comment) => comment.article, { cascade: true })
+    comment: ArticleContent[];
     contents: any;
 
 
